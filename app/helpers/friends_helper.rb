@@ -1,15 +1,18 @@
 module FriendsHelper
   
   def node_color( user_profile )
-    color = '#FBFBEF'                               ## yellow by default
-    color = '#000000' if user_profile.nil?          ## black for new users
 
-    color = '#EFFBFB' if user_profile[:verified]    ## cyan for verified
-    color
+    if user_profile.nil?    
+      '#000000'  ## black for new users
+    elsif user_profile[:verified]
+      '#EFFBFB'  ## cyan for verified
+    else
+      '#FBFBEF'  ## yellow by default
+    end
   end
 
   def edge_strength( user_profile )
-    (Math.log(user_profile[:followers_count]))
+    Math.log(user_profile[:followers_count])
   end
 
   def node_depth( user_profile )

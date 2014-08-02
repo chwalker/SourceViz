@@ -23,7 +23,7 @@
 
   var force = d3.layout.force()
     .charge(-100)
-    .linkDistance(10)
+    .linkDistance( function(d) { return d.source.strength; })
     .size([width, height]);
 
   var svg = d3.select("#svg_pane").append("svg")

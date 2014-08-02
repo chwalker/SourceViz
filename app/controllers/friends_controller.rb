@@ -8,20 +8,21 @@ class FriendsController < ApplicationController
     @profile = JSON.parse(@user[:profile], symbolize_names: true)
     
     @svg_nodes = [ ]
-    @svg_nodes << { name: 'theLoki47', color: 'darkred', size: 4, depth: 1 }
+    @svg_nodes << { name: 'theLoki47', color: 'darkred', size: 4, depth: 1, strength: 0 }
     @friends.each do |user|
       profile = JSON.parse(user[:profile], symbolize_names: true)
       @svg_nodes << { 
-        name: user[:handle], 
+        name:  user[:handle], 
         color: node_color(profile), 
-        size: node_size(profile),  
-        depth: node_depth(profile)
+        size:  node_size(profile),
+        depth: node_depth(profile),
+        strength: edge_strength(profile)
       }
     end
 
     @svg_edges = [ ]
-    (0...@svg_nodes.size).each do |i|
-      @svg_edges << { source: i, target: 0, value: 1 }
+    (1...@svg_nodes.size).each do |i|
+      @svg_edges << { source: i, target: 0, value: 1, strength: @svg_nodes[i][:strength] }
     end
     
     @svg_data = { nodes: @svg_nodes, links: @svg_edges }.to_json
