@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SourceViz</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <style>
+      .node {
+      stroke: #fff;
+      stroke-width: 1.5px;
+      }
+      
+      .link {
+      stroke: #999;
+      stroke-opacity: .6;
+      }
+    </style>
+    
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+  </head>
+  <body>
+    
+    <%= yield %>
+    
+  </body>
+</html>
