@@ -1,21 +1,12 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-8" id="svg_pane">
-    </div>
-    <div class="col-md-4" id="profile_pane">
-      <br/><br/><br/><br/><br/><br/>
-      <%=  render partial: "twitter_users/profile", locals: { profile: @profile} %>
-      <br/><br/><br/><br/><br/><br/>
-    </div>
+    <div class="col-md-8" id="svg_pane">  </div>
+    <div class="col-md-4" id="profile_pane">  </div>
   </div>
 </div>
 
 <script>
 
-  //d3.json("/twitter_users/profile/TheLoki47.json", function(error, json) {
-  //  d3.select("#profile_pane").html(JSON.stringify(json));
-  //});
-  
   // Add graph
   var graph  = <%= raw @svg_data %>;
   var width = 800;
@@ -53,9 +44,15 @@
 	.text(function(d) { return d.name; });
 
   node.on("click", function(d) {
-    var url = "https://twitter.com/" + d.name;
-    window.open(url);
+    // var url = "https://twitter.com/" + d.name + ".json";
+    var url = "/twitter_users/profile/" + d.name + ".json";
+    d3.json(url, function(error, json) {
+      d3.select("#profile_pane").html(
 
+  JSON.stringify(json)
+
+  );
+    });
   });
     
   force.on("tick", function() {
