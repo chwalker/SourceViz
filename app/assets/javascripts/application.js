@@ -16,4 +16,3 @@
 //= require_tree .
 //= require bootstrap.min
 //= require d3.min
-//= require d3.v3.min

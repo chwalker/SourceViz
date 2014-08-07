@@ -1,11 +1,12 @@
-<div>
-  <%= image_tag profile[:profile_image_url_https] %>
-  <%= profile[:name] %> (<%= "@#{profile[:screen_name]}" %>)
+<div id="user_profile">
+  <br/><br/><br/><br/><br/><br/>
+  <%= image_tag @profile[:profile_image_url_https] %>
+  <%= @profile[:name] %> (<%= "@#{@profile[:screen_name]}" %>)
   <br/><br/>
-  <em><%= "#{profile[:description]}" %></em><br/>
+  <em><%= "#{@profile[:description]}" %></em><br/>
   <br/><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Tweets: <%= profile[:statuses_count] %><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Friends: <%= profile[:friends_count] %><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Followers: <%= profile[:followers_count] %><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Location: <%= profile[:location] %><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;Tweets: <%= @profile[:statuses_count] %><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;Friends: <%= @profile[:friends_count] %><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;Followers: <%= @profile[:followers_count] %><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;Location: <%= @profile[:location] %><br/>
 </div>
