@@ -5,7 +5,6 @@ class CreateTwitterUsers < ActiveRecord::Migration
       t.string :handle
       t.text :stats
       t.text :profile
-      t.integer :twitter_id
       t.text :topics
 
       t.timestamps

@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20140801001408) do
     t.string   "handle"
     t.text     "stats"
     t.text     "profile"
-    t.integer  "twitter_id"
     t.text     "topics"
     t.datetime "created_at"
     t.datetime "updated_at"

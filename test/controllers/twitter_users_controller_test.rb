@@ -18,7 +18,7 @@ class TwitterUsersControllerTest < ActionController::TestCase
 
   test "should create twitter_user" do
     assert_difference('TwitterUser.count') do
-      post :create, twitter_user: { handle: @twitter_user.handle, name: @twitter_user.name, profile: @twitter_user.profile, stats: @twitter_user.stats, topics: @twitter_user.topics, twitter_id: @twitter_user.twitter_id }
+      post :create, twitter_user: { handle: @twitter_user.handle, name: @twitter_user.name, profile: @twitter_user.profile, stats: @twitter_user.stats, topics: @twitter_user.topics }
     end
 
     assert_redirected_to twitter_user_path(assigns(:twitter_user))
@@ -35,7 +35,7 @@ class TwitterUsersControllerTest < ActionController::TestCase
   end
 
   test "should update twitter_user" do
-    patch :update, id: @twitter_user, twitter_user: { handle: @twitter_user.handle, name: @twitter_user.name, profile: @twitter_user.profile, stats: @twitter_user.stats, topics: @twitter_user.topics, twitter_id: @twitter_user.twitter_id }
+    patch :update, id: @twitter_user, twitter_user: { handle: @twitter_user.handle, name: @twitter_user.name, profile: @twitter_user.profile, stats: @twitter_user.stats, topics: @twitter_user.topics }
     assert_redirected_to twitter_user_path(assigns(:twitter_user))
   end
 

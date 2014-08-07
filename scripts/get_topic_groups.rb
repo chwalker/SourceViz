@@ -36,7 +36,7 @@ end
 
 def profile_to_user_json(json)
   {
-    twitter_id: json[:id],
+    id:         json[:id],
     name:       json[:name],
     handle:     json[:screen_name],
     stats:      { }.to_json,

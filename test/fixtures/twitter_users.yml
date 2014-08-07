@@ -5,7 +5,6 @@ one:
   handle: MyString
   stats: MyText
   profile: MyText
-  twitter_id: 1
   topics: MyText
 
 two:
@@ -13,5 +12,4 @@ two:
   handle: MyString
   stats: MyText
   profile: MyText
-  twitter_id: 1
   topics: MyText

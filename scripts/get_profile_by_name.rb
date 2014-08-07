@@ -19,10 +19,8 @@ def get_profile(handle='TheLoki47', access_token=nil)
 end
 
 def update_friend_entry(json)
-  twitter_user = TwitterUser.where( twitter_id: json[:id] ).first
-  
   update = {
-    twitter_id: json[:id],
+    id:         json[:id],
     name:       json[:name],
     handle:     json[:screen_name],
     stats:      { }.to_json,
@@ -32,9 +30,10 @@ def update_friend_entry(json)
     is_friends: false
   }
   
-  if twitter_user
+  begin
+    twitter_user = TwitterUser.find(json[:id])  
     twitter_user.merge!(update) ## NB: this will overwrite stats, topics and lists
-  else
+  rescue => err
     twitter_user = TwitterUser.new(update)
   end
   

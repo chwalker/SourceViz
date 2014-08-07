@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" id="svg_pane">  </div>
+    <div class="col-md-4" id="profile_pane">  </div>
+  </div>
+</div>
+
+<script>
+  var graph = <%= raw @svg_data %>;
+  loadMyUserProfilePage(graph);
+</script>
