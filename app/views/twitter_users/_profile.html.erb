@@ -13,5 +13,6 @@
   &nbsp;&nbsp;&nbsp;&nbsp;Topics: <%= @twitter_user[:topics] %><br/>
   <br/><br/>
   <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
-  <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %>
+  <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %> |
+  <%= link_to "Home", "/friends/index" %>
 </div>

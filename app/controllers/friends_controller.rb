@@ -1,5 +1,6 @@
 class FriendsController < ApplicationController
 
+  include ApplicationHelper
   include FriendsHelper
 
   def index

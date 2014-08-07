@@ -1,5 +1,8 @@
 class TwitterUsersController < ApplicationController
 
+  include ApplicationHelper
+  include TwitterUsersHelper
+
   before_action :set_twitter_user, only: [:show, :edit, :update, :destroy, :profile, :graph]
 
   # GET /twitter_users
@@ -33,21 +36,27 @@ class TwitterUsersController < ApplicationController
 
   def graph
     @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
-    # @friends = TwitterUser.where( is_friends: true ) ## TODO: Not me !! 
+    response = get_friends_list(@twitter_user[:handle])
+    @friends = response[:ids]
     @svg_nodes = [ ]
     @svg_nodes << { name: @twitter_user[:handle], color: 'darkred', size: 10, depth: 1, strength: 0 }
-    # @friends.each do |user|
-    #   profile = JSON.parse(user[:profile], symbolize_names: true)
-    #   @svg_nodes << { 
-    #    name:  user[:handle], 
-    #    color: node_color(profile), 
-    #    size:  node_size(profile),
-    #    depth: node_depth(profile),
-    #    strength: edge_strength(profile)
-    #   }
-    # end
+    @friends.each do |user_id|
+      user = TwitterUser.where( twitter_id: user_id ).first 
+      profile = JSON.parse(user[:profile], symbolize_names: true) rescue nil
+      user ||= { handle: user_id }
+      @svg_nodes << { 
+        name:  user[:handle], 
+        color: node_color(profile), 
+        size:  node_size(profile),
+        depth: node_depth(profile),
+        strength: edge_strength(profile)
+      }
+    end
     
     @svg_edges = [ ]
+    (1...@svg_nodes.size).each do |i|
+      @svg_edges << { source: i, target: 0, value: 1, strength: @svg_nodes[i][:strength] }
+    end
 
     @svg_data = { nodes: @svg_nodes, links: @svg_edges }.to_json
   end
