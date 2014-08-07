@@ -42,14 +42,10 @@ class TwitterUsersController < ApplicationController
     @svg_nodes = [ ]
     @svg_nodes << { name: @twitter_user[:handle], color: 'darkred', size: 10, depth: 1, strength: 0 }
     @friends.each do |user_id|
-      begin
-        profile = JSON.parse(TwitterUser.find(user_id)[:profile], symbolize_names: true) rescue nil
-        @svg_nodes << node_json(profile)
-      rescue
-        @svg_nodes << node_json(user_id)        
-      end
+      user = TwitterUser.find(user_id) rescue { profile: user_id }
+      @svg_nodes << node_json(user)
     end
-
+    
     @svg_edges = [ ]
     (1...@svg_nodes.size).each do |i|
       @svg_edges << { source: i, target: 0, value: 1, strength: @svg_nodes[i][:strength] }
