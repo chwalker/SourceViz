@@ -1,5 +1,3 @@
-
-// var url = "https://twitter.com/" + d.name + ".json";
 var loadUserProfile = function(data) {
     $( "#user_profile" ).remove();
 

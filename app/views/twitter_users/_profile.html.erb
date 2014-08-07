@@ -3,10 +3,15 @@
   <%= image_tag @profile[:profile_image_url_https] %>
   <%= @profile[:name] %> (<%= "@#{@profile[:screen_name]}" %>)
   <br/><br/>
-  <em><%= "#{@profile[:description]}" %></em><br/>
+  <em><%= @profile[:description] %></em><br/>
   <br/><br/>
   &nbsp;&nbsp;&nbsp;&nbsp;Tweets: <%= @profile[:statuses_count] %><br/>
   &nbsp;&nbsp;&nbsp;&nbsp;Friends: <%= @profile[:friends_count] %><br/>
   &nbsp;&nbsp;&nbsp;&nbsp;Followers: <%= @profile[:followers_count] %><br/>
   &nbsp;&nbsp;&nbsp;&nbsp;Location: <%= @profile[:location] %><br/>
+  <br/><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;Topics: <%= @twitter_user[:topics] %><br/>
+  <br/><br/>
+  <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
+  <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %>
 </div>
