@@ -59,11 +59,13 @@ module ApplicationHelper
             '#FA5858' ## red
           elsif !( topics[:lists] & [ 'pundits', 'pollsters'] ).empty?
             '#D358F7' ## purple
-          elsif !( topics[:lists] & [ 'big-data', 'sci', 'nerds' ] ).empty?
+          elsif !( topics[:lists] & [ 'data', 'sci', 'nerds', 'tech', 'ling' ] ).empty?
             '#FACC2E' ## orange
-          elsif !( topics[:lists] & [ 'media', 'world', 'nation' ] ).empty?
+          elsif !( topics[:lists] & [ 'biz', 'media', 'world', 'nation' ] ).empty?
             '#FE2EC8' ## pink
           elsif topics[:lists].include? 'fun'
+            ## '#FFFF00' ## bright yellow
+            ## '#A5DF00' ## yellow green
             '#BDBDBD' ## greyscale
           else
             '#FBFBEF'  ## pale yellow by default        

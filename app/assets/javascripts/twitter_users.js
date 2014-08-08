@@ -1,21 +1,32 @@
-var loadUserProfile = function(data) {
-    $( "#user_profile" ).remove();
 
-    var url = "/twitter_users/profile/" + data.name + ".html";
+var updateListMembership = function(handle, url) {
     $.ajax({
-	url: url,
-    }).done(function(html) {
+	url: url
+    }).done(function(updated_html) {
+	loadUserProfile(handle);
+    });
+}
+
+var activateUserProfile = function(handle) {
+    $( "#list_name_button" ).on('click', function() {
+	var list_name = $("#list_name_input").val();
+	var url = '/twitter_users/lists/' + handle + '/' + list_name + '.html';
+	updateListMembership(handle, url)
+    });
+    
+    $( ".list_name" ).on('click', function() {
+	var list_name = $(this).attr("id");
+	var url = '/twitter_users/lists/' + handle + '/' + list_name + '/delete.html';
+	updateListMembership(handle, url);
+    });
+}
+
+var loadUserProfile = function(handle) {
+    $( "#user_profile" ).remove();
+    var url = "/twitter_users/profile/" + handle + ".html";
+    $.ajax({ url: url }).done(function(html) { 
 	$( "#profile_pane" ).append(html);
-	$( "#list_name_button" ).on('click', function() {
-	    var list_name = $("#list_name_input").val();
-	    var url = '/twitter_users/lists/' + data.name + '/' + list_name + '.html';
-	    $.ajax({
-		url: url,
-	    }).done(function(updated_html) {
-		$( "#user_profile" ).remove();
-		$( "#profile_pane" ).append(updated_html);
-	    });
-	});
+	activateUserProfile(handle); 
     });
 }
 
@@ -54,7 +65,7 @@ var loadMyUserProfilePage = function(graph) {
     
     node.append("title").text(function(d) { return d.name; });
     
-    node.on("click", function(d) { return loadUserProfile(d); } );
+    node.on("click", function(d) { return loadUserProfile(d.name); } );
     
     force.on("tick", function() {
 	link.attr("x1", function(d) { return d.source.x; })
@@ -65,5 +76,5 @@ var loadMyUserProfilePage = function(graph) {
             .attr("cy", function(d) { return d.y; });
     });
 
-    loadUserProfile(graph['nodes'][0]);
+    loadUserProfile(graph['nodes'][0].name);
 }

@@ -4,7 +4,7 @@ class TwitterUsersController < ApplicationController
   include TwitterUsersHelper
   include ListsHelper
 
-  before_action :set_twitter_user, only: [:profile, :graph, :update_list]
+  before_action :set_twitter_user, only: [:profile, :graph, :update_list, :downdate_list]
 
   # GET /twitter_users
   # GET /twitter_users.json
@@ -35,6 +35,29 @@ class TwitterUsersController < ApplicationController
       end
       
       format.html do
+        @topics  = JSON.parse(@twitter_user[:topics],  symbolize_names: true)
+        @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
+        render partial: "profile"
+      end
+
+    end
+  end
+  
+  def downdate_list
+    @list_name = params[:list]
+    respond_to do |format|
+      profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
+      
+      remove_list_from_user(profile, @list_name)
+      remove_user_from_list(@twitter_user, @list_name)
+      set_twitter_user( )
+      
+      format.json do 
+        render json: @twitter_user
+      end
+      
+      format.html do
+        @topics  = JSON.parse(@twitter_user[:topics],  symbolize_names: true)
         @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
         render partial: "profile"
       end

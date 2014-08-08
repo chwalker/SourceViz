@@ -13,10 +13,10 @@
   Lists: 
   <br/><br/>
     <% @topics[:lists].each do |list_name| %>
-    <div class="list_name" id=<%= "#{list_name}_list_entry" %>>
+    <div class="list_name" id=<%= "#{list_name}" %>>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <button type="button" class="btn btn-default btn-xs" id=<%= "delete_#{list_name}_list_entry" %>>-</button>
-      <span><%= list_name %></span>
+      <button type="button" class="btn btn-default btn-xs">-</button>
+      <%= list_name %>
     </div>
     <% end %>
     &nbsp;&nbsp;&nbsp;&nbsp;
