@@ -1,7 +1,23 @@
 module ApplicationHelper
+
+  def prepare_access_token(oauth_token, oauth_token_secret)
+    consumer = OAuth::Consumer.new( ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET'],
+                                    :site => "https://api.twitter.com", :scheme => :header)
+    token_hash = { :oauth_token => oauth_token,:oauth_token_secret => oauth_token_secret }
+    access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
+    return access_token
+  end
+
+  def user_profile(user)
+    if user[:profile].kind_of? Integer
+      user
+    else
+      JSON.parse( user[:profile], symbolize_names: true)
+    end
+  end
   
   def node_json( user )
-    profile = JSON.parse( user[:profile], symbolize_names: true)
+    profile = user_profile(user)
     { 
       name:  screen_name(profile),
       color: node_color(user),
@@ -25,7 +41,7 @@ module ApplicationHelper
     else
       profile = JSON.parse(user[:profile], symbolize_names: true)
       if profile[:verified]
-        '#EFFBFB'  ## cyan for verified
+        '#58FAF4'  ## cyan for verified
       else
         topics = JSON.parse(user[:topics], symbolize_names: true)
         if topics[:lists].nil? or topics[:lists].empty?
@@ -34,12 +50,12 @@ module ApplicationHelper
           if !( topics[:lists] & [ 'met', 'powerset-posse'] ).empty?
             '#58FA58' ## green
           elsif topics[:lists].include? 'p2'
-            '#5858FA' ## blue
+            '#819FF7' ## blue
           elsif topics[:lists].include? 'tcot'
-            '#FE2E2E' ## red
+            '#FA5858' ## red
           elsif !( topics[:lists] & [ 'pundits', 'pollsters'] ).empty?
             '#D358F7' ## purple
-          elsif !( topics[:lists] & [ 'big-data', 'sci' ] ).empty?
+          elsif !( topics[:lists] & [ 'big-data', 'sci', 'nerds' ] ).empty?
             '#FACC2E' ## orange
           elsif !( topics[:lists] & [ 'media', 'world', 'nation' ] ).empty?
             '#FE2EC8' ## pink
@@ -53,8 +69,8 @@ module ApplicationHelper
     end
   end
 
-  def edge_strength( profile )
-    if !profile.kind_of?(Integer) 
+  def edge_strength(profile)
+    if !profile.kind_of?(Integer) and profile[:followers_count]
       Math.log(profile[:followers_count])
     else
       10
@@ -73,7 +89,7 @@ module ApplicationHelper
     if !profile.kind_of?(Integer) and profile[:friends_count]
       Math.log(profile[:friends_count])
     else
-      10
+      6
     end
   end
   

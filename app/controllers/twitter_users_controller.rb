@@ -3,7 +3,7 @@ class TwitterUsersController < ApplicationController
   include ApplicationHelper
   include TwitterUsersHelper
 
-  before_action :set_twitter_user, only: [:profile, :graph]
+  before_action :set_twitter_user, only: [:profile, :graph, :update_list]
 
   # GET /twitter_users
   # GET /twitter_users.json
@@ -18,6 +18,21 @@ class TwitterUsersController < ApplicationController
     end
     @user = TwitterUser.where( handle: 'BarackObama' ).first
     @profile = JSON.parse(@user[:profile], symbolize_names: true)
+  end
+
+  def update_list
+    @list_name = params[:list]
+    respond_to do |format|
+      @topics = JSON.parse(@twitter_user[:topics], symbolize_names: true)
+      @topics[:lists] ||= [ ]
+      @topics[:lists] << @list_name unless @topics[:lists].include? @list_name
+
+      ## TODO: Actually update the list on twitter.com
+
+      format.json do 
+        render json: @topics
+      end
+    end
   end
   
   def profile
@@ -63,7 +78,7 @@ class TwitterUsersController < ApplicationController
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def twitter_user_params
-    params.require(:twitter_user).permit(:name, :handle, :stats, :profile, :topics)
+    params.require(:twitter_user).permit(:name, :handle, :stats, :profile, :topics, :list)
   end
 
 end

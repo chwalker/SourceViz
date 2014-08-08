@@ -14,5 +14,7 @@
   <br/><br/>
   <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
   <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %> |
-  <%= link_to "Home", "/friends/index" %>
+  <%= link_to "Home", "/friends/index" %> | 
+  <input type="text" id="list_name_input">
+  <button type="button" class="btn btn-default" id="list_name_button">+</button>
 </div>

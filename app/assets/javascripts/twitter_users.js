@@ -6,6 +6,15 @@ var loadUserProfile = function(data) {
 	url: url,
     }).done(function(html) {
 	$( "#profile_pane" ).append(html);
+	$( "#list_name_button" ).on('click', function() {
+	    var list_name = $("#list_name_input").val();
+	    var url = '/twitter_users/lists/' + data.name + '/' + list_name + '.json';
+	    $.ajax({
+		url: url,
+	    }).done(function(json) {
+		alert(JSON.stringify(json));
+	    });
+	});
     });
 }
 
@@ -15,7 +24,7 @@ var loadMyUserProfilePage = function(graph) {
     var height = 800;
     
     var force = d3.layout.force()
-	.charge(-100)
+	.charge(-50)
 	.linkDistance( function(d) { return d.source.strength; })
 	.size([width, height]);
     
