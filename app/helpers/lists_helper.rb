@@ -45,7 +45,7 @@ module ListsHelper
 
   ## TODO: more abstract as generic json attr updater
   def update_user_lists(user, list_name)
-    topics = JSON.parse(user[:topics]) rescue { }
+    topics = JSON.parse(user[:topics], symbolize_names: true) rescue { }
     topics[:lists] ||= [ ]
     topics[:lists] << list_name unless topics[:lists].include? list_name
     user[:topics] = topics.to_json

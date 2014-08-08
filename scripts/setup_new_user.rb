@@ -5,8 +5,8 @@ require 'oauth'
 require 'json'
 
 include ApplicationHelper
-include TwitterUserHelper
 include FriendsHelper
+include ListsHelper
 
 update_profile_by_name('TheLoki47', false)
 update_all_friends( )
