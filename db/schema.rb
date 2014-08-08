@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20140801001408) do
     t.text     "topics"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "lists"
     t.boolean  "is_friends"
   end
 
