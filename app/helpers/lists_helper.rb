@@ -2,17 +2,37 @@ module ListsHelper
 
   include TwitterUsersHelper
 
+  def api_url( )
+    "https://api.twitter.com/1.1"
+  end
+
   def list_url()
-    "https://api.twitter.com/1.1/lists/list.json"
+    "#{api_url}/lists/list.json"
   end
   
   def list_member_url(id=34918716, cursor=-1)
-    "https://api.twitter.com/1.1/lists/members.json?list_id=#{id}&cursor=#{cursor}"
+    "#{api_url}/lists/members.json?list_id=#{id}&cursor=#{cursor}"
   end
-
+  
+  def list_update_url(method=:create)
+    "#{api_url}/lists/members/#{method}.json"
+  end
+  
+  def list_update_params(handle, slug, owner='TheLoki47')
+    "slug=#{slug}&owner_screen_name=#{owner}&screen_name=#{handle}"
+  end
+  
   def get_lists()
     token ||= prepare_access_token(ENV['TWITTER_AUTH_TOKEN'], ENV['TWITTER_AUTH_SECRET'])
     response = token.request(:get, list_url() )
+    JSON.parse(response.body, symbolize_names: true)
+  end
+  
+  def post_to_list(handle, slug, method)
+    url = [ list_update_url(method), list_update_params(handle, slug) ] * "?"
+    token ||= prepare_access_token(ENV['TWITTER_AUTH_TOKEN'], ENV['TWITTER_AUTH_SECRET'])
+    response = token.request(:post, url) 
+    puts [ url, response.inspect ] * ' '
     JSON.parse(response.body, symbolize_names: true)
   end
   
@@ -44,18 +64,34 @@ module ListsHelper
   end
 
   ## TODO: more abstract as generic json attr updater
-  def update_user_lists(user, list_name)
+  def update_user_lists(user, list_name, method=:add)
     topics = JSON.parse(user[:topics], symbolize_names: true) rescue { }
     topics[:lists] ||= [ ]
-    topics[:lists] << list_name unless topics[:lists].include? list_name
+    if method == :add
+      topics[:lists] << list_name unless topics[:lists].include? list_name
+    elsif method == :remove
+      topics[:lists].delete(list_name)
+    end
     user[:topics] = topics.to_json
     warn "Failed to save #{user.inspect}" unless user.save
   end
   
-  ## TODO: remove lists ???
   def add_list_to_user(profile, list_name)
     user = find_or_make(profile)
-    update_user_lists(user, list_name)
+    update_user_lists(user, list_name, :add)
+  end
+
+  def remove_list_from_user(profile, list_name)
+    user = find_or_make(profile)
+    update_user_lists(user, list_name, :remove)
+  end
+  
+  def add_user_to_list(user, list_name)
+    post_to_list(user[:handle], list_name, :create)
+  end
+  
+  def remove_user_from_list(user, list_name)
+    post_to_list(user[:handle], list_name, :destroy)
   end
   
 end

@@ -2,7 +2,7 @@ module ApplicationHelper
 
   ####################### API Access Methods ###########################
 
-  def prepare_access_token(oauth_token, oauth_token_secret)
+  def prepare_access_token(oauth_token, oauth_token_secret, method=:get)
     consumer = OAuth::Consumer.new( ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET'],
                                     :site => "https://api.twitter.com", :scheme => :header)
     token_hash = { :oauth_token => oauth_token,:oauth_token_secret => oauth_token_secret }

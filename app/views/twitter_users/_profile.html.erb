@@ -1,6 +1,6 @@
 <div id="user_profile">
-  <br/><br/><br/><br/><br/><br/>
-  <%= image_tag @profile[:profile_image_url_https] %>
+  <br/><br/><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;  <%= image_tag @profile[:profile_image_url_https] %>
   <%= @profile[:name] %> (<%= "@#{@profile[:screen_name]}" %>)
   <br/><br/>
   <em><%= @profile[:description] %></em><br/>
@@ -10,11 +10,20 @@
   &nbsp;&nbsp;&nbsp;&nbsp;Followers: <%= @profile[:followers_count] %><br/>
   &nbsp;&nbsp;&nbsp;&nbsp;Location: <%= @profile[:location] %><br/>
   <br/><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Topics: <%= @twitter_user[:topics] %><br/>
+  Lists: 
   <br/><br/>
-  <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
-  <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %> |
-  <%= link_to "Home", "/friends/index" %> | 
-  <input type="text" id="list_name_input">
-  <button type="button" class="btn btn-default" id="list_name_button">+</button>
+    <% @topics[:lists].each do |list_name| %>
+    <div class="list_name" id=<%= "#{list_name}_list_entry" %>>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-default btn-xs" id=<%= "delete_#{list_name}_list_entry" %>>-</button>
+      <span><%= list_name %></span>
+    </div>
+    <% end %>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-default btn-xs" id="list_name_button">+</button>
+    <input type="text" id="list_name_input">
+    <br/><br/>
+    <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
+    <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %> |
+    <%= link_to "Home", "/friends/index" %>
 </div>

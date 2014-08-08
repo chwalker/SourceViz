@@ -2,6 +2,7 @@ class TwitterUsersController < ApplicationController
 
   include ApplicationHelper
   include TwitterUsersHelper
+  include ListsHelper
 
   before_action :set_twitter_user, only: [:profile, :graph, :update_list]
 
@@ -23,32 +24,38 @@ class TwitterUsersController < ApplicationController
   def update_list
     @list_name = params[:list]
     respond_to do |format|
-      @topics = JSON.parse(@twitter_user[:topics], symbolize_names: true)
-      @topics[:lists] ||= [ ]
-      @topics[:lists] << @list_name unless @topics[:lists].include? @list_name
+      profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
 
-      ## TODO: Actually update the list on twitter.com
-
+      add_list_to_user(profile, @list_name)
+      add_user_to_list(@twitter_user, @list_name)
+      set_twitter_user( )
+      
       format.json do 
-        render json: @topics
+        render json: @twitter_user
       end
+      
+      format.html do
+        @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
+        render partial: "profile"
+      end
+
     end
   end
   
   def profile
     respond_to do |format|
       @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
-      
       format.json do 
         render json: @profile
       end
 
       format.html do
+        @topics = JSON.parse(@twitter_user[:topics], symbolize_names: true)
         render partial: "profile"
       end
     end
   end
-
+  
   def graph
     @profile   = JSON.parse(@twitter_user[:profile], symbolize_names: true)
     response   = get_friends_list(@twitter_user[:handle])

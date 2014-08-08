@@ -8,11 +8,12 @@ var loadUserProfile = function(data) {
 	$( "#profile_pane" ).append(html);
 	$( "#list_name_button" ).on('click', function() {
 	    var list_name = $("#list_name_input").val();
-	    var url = '/twitter_users/lists/' + data.name + '/' + list_name + '.json';
+	    var url = '/twitter_users/lists/' + data.name + '/' + list_name + '.html';
 	    $.ajax({
 		url: url,
-	    }).done(function(json) {
-		alert(JSON.stringify(json));
+	    }).done(function(updated_html) {
+		$( "#user_profile" ).remove();
+		$( "#profile_pane" ).append(updated_html);
 	    });
 	});
     });
