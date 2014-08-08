@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  ####################### API Access Methods ###########################
+
   def prepare_access_token(oauth_token, oauth_token_secret)
     consumer = OAuth::Consumer.new( ENV['TWITTER_API_KEY'], ENV['TWITTER_API_SECRET'],
                                     :site => "https://api.twitter.com", :scheme => :header)
@@ -7,6 +9,8 @@ module ApplicationHelper
     access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
     return access_token
   end
+
+  #################### Graph Management Methods ########################
 
   def user_profile(user)
     if user[:profile].kind_of? Integer

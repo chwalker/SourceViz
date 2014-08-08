@@ -14,6 +14,10 @@ module TwitterUsersHelper
     JSON.parse(response.body, symbolize_names: true)
   end
 
+  def update_profile_by_name(handle='TheLoki47', friend=false)
+    refresh_user_profile(get_profile(handle), friend)
+  end
+  
   def refresh_user_profile(user, friend=false)
     begin
       twitter_user = TwitterUser.find(user[:id])
@@ -23,6 +27,15 @@ module TwitterUsersHelper
     end
     
     warn "ERROR: Failed to save: #{twitter_user.to_json}\n\n" unless twitter_user.save
+  end
+
+  def find_or_make(profile)
+    begin
+      TwitterUser.find(profile[:id])
+    rescue => err
+      warn "Making new user (#{profile[:screen_name]}) ..."
+      TwitterUser.new(json_content(profile, true))
+    end
   end
   
   def json_content(json, create=false, friend=false)

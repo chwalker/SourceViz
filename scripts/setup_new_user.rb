@@ -8,5 +8,6 @@ include ApplicationHelper
 include TwitterUserHelper
 include FriendsHelper
 
-#update_my_profile( )
+update_profile_by_name('TheLoki47', false)
 update_all_friends( )
+update_all_lists( )
