@@ -1,24 +1,40 @@
 
-var updateListMembership = function(handle, url) {
-    $.ajax({
-	url: url
-    }).done(function(updated_html) {
-	loadUserProfile(handle);
-    });
+var updateUserProfile = function(handle, url) {
+    $.ajax({ url: url }).done(function(updated_html) { loadUserProfile(handle); });
+}
+
+var befriendTwitterUser = function(handle) {
+    var url = '/twitter_users/' + handle + '/befriend.html';
+    updateUserProfile(handle, url);
+}
+
+var defriendTwitterUser = function(handle) {
+    var url = '/twitter_users/' + handle + '/defriend.html';
+    updateUserProfile(handle, url);
 }
 
 var activateUserProfile = function(handle) {
+
     $( "#list_name_button" ).on('click', function() {
 	var list_name = $("#list_name_input").val();
 	var url = '/twitter_users/lists/' + handle + '/' + list_name + '.html';
-	updateListMembership(handle, url)
+	updateUserProfile(handle, url);
     });
     
-    $( ".list_name" ).on('click', function() {
+    $( ".remove_list_item" ).on('click', function() {
 	var list_name = $(this).attr("id");
 	var url = '/twitter_users/lists/' + handle + '/' + list_name + '/delete.html';
-	updateListMembership(handle, url);
+	updateUserProfile(handle, url);
     });
+
+    $( "#befriend_button" ).on('click', function() {
+	befriendTwitterUser(handle);
+    });
+    
+    $( "#defriend_button" ).on('click', function() {
+	defriendTwitterUser(handle);
+    });
+
 }
 
 var loadUserProfile = function(handle) {

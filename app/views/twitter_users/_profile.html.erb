@@ -1,29 +1,81 @@
 <div id="user_profile">
-  <br/><br/><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;  <%= image_tag @profile[:profile_image_url_https] %>
-  <%= @profile[:name] %> (<%= "@#{@profile[:screen_name]}" %>)
-  <br/><br/>
-  <em><%= @profile[:description] %></em><br/>
-  <br/><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Tweets: <%= @profile[:statuses_count] %><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Friends: <%= @profile[:friends_count] %><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Followers: <%= @profile[:followers_count] %><br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;Location: <%= @profile[:location] %><br/>
-  <br/><br/>
-  Lists: 
-  <br/><br/>
-    <% @topics[:lists].each do |list_name| %>
-    <div class="list_name" id=<%= "#{list_name}" %>>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <button type="button" class="btn btn-default btn-xs">-</button>
-      <%= list_name %>
+  
+  <div class="row"><div class="col-md-12">
+      <br/><br/></br><br/>
+      <br/><br/></br><br/>
+  </div></div>
+  
+  <div class="row">
+    <div class="col-md-12" id="user_profle_header">  
+      <%= image_tag @profile[:profile_image_url_https] %>
+      <%= @profile[:name] %> (<%= "@#{@profile[:screen_name]}" %>)
     </div>
-    <% end %>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="button" class="btn btn-default btn-xs" id="list_name_button">+</button>
-    <input type="text" id="list_name_input">
-    <br/><br/>
-    <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
-    <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %> |
-    <%= link_to "Home", "/friends/index" %>
+  </div>
+  
+  <div class="row"><div class="col-md-12">
+      <br/><br/>
+  </div></div>
+  
+  <div class="row">
+    <div class="col-md-12" id="user_profle_description">  
+      <em><%= @profile[:description] %></em><br/>
+    </div>
+  </div>
+  
+  <div class="row"><div class="col-md-12"><br/></div></div>
+  
+  <div class="row">
+    <div class="col-md-1"> </div>
+    <div class="col-md-6" id="user_details">  
+      Tweets: <%= @profile[:statuses_count] %><br/>
+      Friends: <%= @profile[:friends_count] %><br/>
+      Followers: <%= @profile[:followers_count] %><br/>
+      Location: <%= @profile[:location] %><br/>
+    </div>
+
+
+    <div class="col-md-2" id="follow_button_container">
+      <% if @twitter_user[:is_friends] == true %>
+      <button type="button" class="btn btn-danger" id="defriend_button">Defriend</button>
+      <% else %>
+      <button type="button" class="btn btn-primary" id="befriend_button">Befriend</button>
+      <% end %>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  
+  <div class="row"><div class="col-md-12">
+      <br/><br/>Lists:<br/><br/>
+  </div></div>
+  
+  <% @topics[:lists].each do |list_name| %>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-1"> 
+      <button type="button" class="btn btn-danger btn-xs remove_list_item" id=<%= "#{list_name}" %>>&not;</button>
+    </div>
+    <div class="col-md-10"><%= list_name %></div>
+  </div>
+  <% end %>
+  
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-1"> 
+      <button type="button" class="btn btn-success btn-xs" id="list_name_button">&plus;</button>
+    </div>
+    <div class="col-md-10"><input type="text" id="list_name_input"></div>
+  </div>
+  
+  <div class="row"><div class="col-md-12"><br/><br/></div></div>
+  
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <%= link_to "Graph", "/twitter_users/graph/#{@twitter_user[:handle]}" %> | 
+      <%= link_to "Profile", "https://twitter.com/#{@twitter_user[:handle]}" , target: "_blank" %> |
+      <%= link_to "Home", "/friends/index" %>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  
 </div>

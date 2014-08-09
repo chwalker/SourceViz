@@ -2,10 +2,6 @@ module ListsHelper
 
   include TwitterUsersHelper
 
-  def api_url( )
-    "https://api.twitter.com/1.1"
-  end
-
   def list_url()
     "#{api_url}/lists/list.json"
   end

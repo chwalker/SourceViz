@@ -4,7 +4,7 @@ class TwitterUsersController < ApplicationController
   include TwitterUsersHelper
   include ListsHelper
 
-  before_action :set_twitter_user, only: [:profile, :graph, :update_list, :downdate_list]
+  before_action :set_twitter_user, only: [:profile, :graph, :update_list, :downdate_list, :befriend, :defriend]
 
   # GET /twitter_users
   # GET /twitter_users.json
@@ -62,6 +62,42 @@ class TwitterUsersController < ApplicationController
         render partial: "profile"
       end
 
+    end
+  end
+
+  def befriend
+    respond_to do |format|
+      update_friend_status(@twitter_user, :create)
+      set_twitter_user( )
+      
+      format.json do 
+        render json: @twitter_user
+      end
+      
+      format.html do
+        @topics  = JSON.parse(@twitter_user[:topics],  symbolize_names: true)
+        @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
+        render partial: "profile"
+      end
+
+    end
+  end
+  
+  def defriend
+    respond_to do |format|
+      update_friend_status(@twitter_user, :destroy)
+      set_twitter_user( )
+      
+      format.json do 
+        render json: @twitter_user
+      end
+      
+      format.html do
+        @topics  = JSON.parse(@twitter_user[:topics],  symbolize_names: true)
+        @profile = JSON.parse(@twitter_user[:profile], symbolize_names: true)
+        render partial: "profile"
+      end
+      
     end
   end
   
