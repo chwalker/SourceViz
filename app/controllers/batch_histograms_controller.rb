@@ -69,6 +69,6 @@ class BatchHistogramsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def batch_histogram_params
-      params.require(:batch_histogram).permit(:name, :tweet_count, :since_id, :histogram)
+      params.require(:batch_histogram).permit(:name, :tweet_count, :since_id, :histogram, :metric)
     end
 end

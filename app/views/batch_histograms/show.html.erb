@@ -20,5 +20,10 @@
   <%= @batch_histogram.histogram %>
 </p>
 
+<p>
+  <strong>Metric:</strong>
+  <%= @batch_histogram.metric %>
+</p>
+
 <%= link_to 'Edit', edit_batch_histogram_path(@batch_histogram) %> |
 <%= link_to 'Back', batch_histograms_path %>

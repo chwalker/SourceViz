@@ -21,6 +21,12 @@ module TweetsHelper
     histogram_tokens(tweet, entity_name).each {|token| hist[token] += 1 unless token !~ /\S/ }
     hist
   end
+
+  def document_frequency(hist)
+    df = Hash.new(0)
+    hist.keys.each {|token| df[token] = 1 }
+    df
+  end
   
   def histogram_tokens(tweet, entity_name)
     case entity_name
@@ -43,13 +49,14 @@ module TweetsHelper
     reduced
   end
   
-  def save_batch_histograms(histograms, tweet_count, since_id)
+  def save_batch_histograms(histograms, tweet_count, since_id, metric=:term_frequency)
     histograms.each do |name, hist|
       batch_details = {
         name: name, 
         tweet_count: tweet_count, 
         histogram: hist.to_json,
-        since_id: since_id
+        since_id: since_id,
+        metric: metric
       }
       batch = BatchHistogram.new(batch_details)
       warn "Failed to save batch: #{batch.inspect}" unless batch.save

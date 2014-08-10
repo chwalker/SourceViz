@@ -18,7 +18,7 @@ class BatchHistogramsControllerTest < ActionController::TestCase
 
   test "should create batch_histogram" do
     assert_difference('BatchHistogram.count') do
-      post :create, batch_histogram: { histogram: @batch_histogram.histogram, name: @batch_histogram.name, since_id: @batch_histogram.since_id, tweet_count: @batch_histogram.tweet_count }
+      post :create, batch_histogram: { histogram: @batch_histogram.histogram, metric: @batch_histogram.metric, name: @batch_histogram.name, since_id: @batch_histogram.since_id, tweet_count: @batch_histogram.tweet_count }
     end
 
     assert_redirected_to batch_histogram_path(assigns(:batch_histogram))
@@ -35,7 +35,7 @@ class BatchHistogramsControllerTest < ActionController::TestCase
   end
 
   test "should update batch_histogram" do
-    patch :update, id: @batch_histogram, batch_histogram: { histogram: @batch_histogram.histogram, name: @batch_histogram.name, since_id: @batch_histogram.since_id, tweet_count: @batch_histogram.tweet_count }
+    patch :update, id: @batch_histogram, batch_histogram: { histogram: @batch_histogram.histogram, metric: @batch_histogram.metric, name: @batch_histogram.name, since_id: @batch_histogram.since_id, tweet_count: @batch_histogram.tweet_count }
     assert_redirected_to batch_histogram_path(assigns(:batch_histogram))
   end
 

@@ -4,9 +4,11 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Datetime</th>
+      <th>&nbsp;</th>
       <th>Tweet count</th>
-      <th>Since</th>
       <th>Histogram</th>
+      <th>Metric</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +17,11 @@
     <% @batch_histograms.each do |batch_histogram| %>
       <tr>
         <td><%= batch_histogram.name %></td>
+        <td><%= batch_histogram.created_at %></td>
+	<td>&nbsp;</td>
         <td><%= batch_histogram.tweet_count %></td>
-        <td><%= batch_histogram.since_id %></td>
-        <td><%= batch_histogram.histogram %></td>
+        <td><%= batch_histogram.histogram.size %></td>
+        <td><%= batch_histogram.metric %></td>
         <td><%= link_to 'Show', batch_histogram %></td>
         <td><%= link_to 'Edit', edit_batch_histogram_path(batch_histogram) %></td>
         <td><%= link_to 'Destroy', batch_histogram, method: :delete, data: { confirm: 'Are you sure?' } %></td>

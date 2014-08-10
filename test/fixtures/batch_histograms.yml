@@ -5,9 +5,11 @@ one:
   tweet_count: 1
   since_id: 1
   histogram: MyText
+  metric: MyString
 
 two:
   name: MyString
   tweet_count: 1
   since_id: 1
   histogram: MyText
+  metric: MyString
