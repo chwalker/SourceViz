@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  tweet_count: 1
+  since_id: 1
+  histogram: MyText
+
+two:
+  name: MyString
+  tweet_count: 1
+  since_id: 1
+  histogram: MyText

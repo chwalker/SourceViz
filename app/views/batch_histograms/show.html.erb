@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @batch_histogram.name %>
+</p>
+
+<p>
+  <strong>Tweet count:</strong>
+  <%= @batch_histogram.tweet_count %>
+</p>
+
+<p>
+  <strong>Since:</strong>
+  <%= @batch_histogram.since_id %>
+</p>
+
+<p>
+  <strong>Histogram:</strong>
+  <%= @batch_histogram.histogram %>
+</p>
+
+<%= link_to 'Edit', edit_batch_histogram_path(@batch_histogram) %> |
+<%= link_to 'Back', batch_histograms_path %>

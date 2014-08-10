@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140801001408) do
+ActiveRecord::Schema.define(version: 20140810033558) do
+
+  create_table "batch_histograms", force: true do |t|
+    t.string   "name"
+    t.integer  "tweet_count"
+    t.integer  "since_id"
+    t.text     "histogram"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "twitter_users", force: true do |t|
     t.string   "name"
