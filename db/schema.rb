@@ -11,9 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140810115817) do
+ActiveRecord::Schema.define(version: 20140812221702) do
 
   create_table "batch_histograms", force: true do |t|
+    t.string   "name"
+    t.integer  "tweet_count"
+    t.integer  "since_id"
+    t.text     "histogram"
+    t.string   "metric"
+    t.string   "stream"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "daily_histograms", force: true do |t|
+    t.string   "name"
+    t.integer  "tweet_count"
+    t.integer  "since_id"
+    t.text     "histogram"
+    t.string   "metric"
+    t.string   "stream"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hourly_histograms", force: true do |t|
+    t.string   "name"
+    t.integer  "tweet_count"
+    t.integer  "since_id"
+    t.text     "histogram"
+    t.string   "metric"
+    t.string   "stream"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "monthly_histograms", force: true do |t|
     t.string   "name"
     t.integer  "tweet_count"
     t.integer  "since_id"
@@ -33,6 +66,17 @@ ActiveRecord::Schema.define(version: 20140810115817) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_friends"
+  end
+
+  create_table "weekly_histograms", force: true do |t|
+    t.string   "name"
+    t.integer  "tweet_count"
+    t.integer  "since_id"
+    t.text     "histogram"
+    t.string   "metric"
+    t.string   "stream"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

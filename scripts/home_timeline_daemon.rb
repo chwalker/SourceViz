@@ -12,7 +12,7 @@ MAX_SLEEP_TIME = 600
 MIN_SLEEP_TIME = 90
 
 since_id   = nil
-sleep_time = 120
+sleep_time = 300
 
 while(true)
   tf = Hash.new {|h,k| h[k] = Hash.new(0) }
@@ -23,7 +23,7 @@ while(true)
   since_id = tweets[0][:id]
   tweets.each do |tweet|
     TARGETED_ENTITIES.each do |name|
-      tf_hist  = histogram(tweet, name)
+      tf_hist  = make_histogram(tweet, name)
       tf[name] = reduce_histograms([ tf[name], tf_hist ]) 
 
       df_hist  = document_frequency(tf_hist)

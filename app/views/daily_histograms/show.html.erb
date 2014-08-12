@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @daily_histogram.name %>
+</p>
+
+<p>
+  <strong>Tweet count:</strong>
+  <%= @daily_histogram.tweet_count %>
+</p>
+
+<p>
+  <strong>Since:</strong>
+  <%= @daily_histogram.since_id %>
+</p>
+
+<p>
+  <strong>Histogram:</strong>
+  <%= @daily_histogram.histogram %>
+</p>
+
+<p>
+  <strong>Metric:</strong>
+  <%= @daily_histogram.metric %>
+</p>
+
+<p>
+  <strong>Stream:</strong>
+  <%= @daily_histogram.stream %>
+</p>
+
+<%= link_to 'Edit', edit_daily_histogram_path(@daily_histogram) %> |
+<%= link_to 'Back', daily_histograms_path %>

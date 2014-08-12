@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @monthly_histogram.name %>
+</p>
+
+<p>
+  <strong>Tweet count:</strong>
+  <%= @monthly_histogram.tweet_count %>
+</p>
+
+<p>
+  <strong>Since:</strong>
+  <%= @monthly_histogram.since_id %>
+</p>
+
+<p>
+  <strong>Histogram:</strong>
+  <%= @monthly_histogram.histogram %>
+</p>
+
+<p>
+  <strong>Metric:</strong>
+  <%= @monthly_histogram.metric %>
+</p>
+
+<p>
+  <strong>Stream:</strong>
+  <%= @monthly_histogram.stream %>
+</p>
+
+<%= link_to 'Edit', edit_monthly_histogram_path(@monthly_histogram) %> |
+<%= link_to 'Back', monthly_histograms_path %>

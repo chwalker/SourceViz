@@ -16,13 +16,13 @@ module TweetsHelper
     string = " #{string} "
     string += ' '
     string.gsub!(/[\s\A]http\S+[\s]/, ' ')
-    string.downcase.split(/\W+/)[1..-1] || [ ]
+    string.split(/\W+/)[1..-1] || [ ]
   end
   
-  def histogram(tweet, entity_name=:tokens)
+  def make_histogram(tweet, entity_name=:tokens)
     hist = Hash.new(0)
     begin
-      histogram_tokens(tweet, entity_name).each {|token| hist[token] += 1 unless token !~ /\S/ }
+      histogram_tokens(tweet, entity_name).each {|token| hist[token.downcase] += 1 unless token !~ /\S/ }
     rescue => err
       warn "Failed to generate #{entity_name} histogram for #{tweet.inspect}\n#{err}"
     end

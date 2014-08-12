@@ -1,0 +1,41 @@
+<%= form_for(@daily_histogram) do |f| %>
+  <% if @daily_histogram.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily_histogram.errors.count, "error") %> prohibited this daily_histogram from being saved:</h2>
+
+      <ul>
+      <% @daily_histogram.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :tweet_count %><br>
+    <%= f.number_field :tweet_count %>
+  </div>
+  <div class="field">
+    <%= f.label :since_id %><br>
+    <%= f.number_field :since_id %>
+  </div>
+  <div class="field">
+    <%= f.label :histogram %><br>
+    <%= f.text_area :histogram %>
+  </div>
+  <div class="field">
+    <%= f.label :metric %><br>
+    <%= f.text_field :metric %>
+  </div>
+  <div class="field">
+    <%= f.label :stream %><br>
+    <%= f.text_field :stream %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

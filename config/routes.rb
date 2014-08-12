@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :hourly_histograms
+
+  resources :monthly_histograms
+
+  resources :weekly_histograms
+
+  resources :daily_histograms
+
   resources :batch_histograms
 
   get 'tweets/view'

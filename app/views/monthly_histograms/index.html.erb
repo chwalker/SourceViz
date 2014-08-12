@@ -1,0 +1,35 @@
+<h1>Listing monthly_histograms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Tweet count</th>
+      <th>Since</th>
+      <th>Histogram</th>
+      <th>Metric</th>
+      <th>Stream</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @monthly_histograms.each do |monthly_histogram| %>
+      <tr>
+        <td><%= monthly_histogram.name %></td>
+        <td><%= monthly_histogram.tweet_count %></td>
+        <td><%= monthly_histogram.since_id %></td>
+        <td><%= monthly_histogram.histogram %></td>
+        <td><%= monthly_histogram.metric %></td>
+        <td><%= monthly_histogram.stream %></td>
+        <td><%= link_to 'Show', monthly_histogram %></td>
+        <td><%= link_to 'Edit', edit_monthly_histogram_path(monthly_histogram) %></td>
+        <td><%= link_to 'Destroy', monthly_histogram, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Monthly histogram', new_monthly_histogram_path %>
