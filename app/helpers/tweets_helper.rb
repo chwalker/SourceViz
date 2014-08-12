@@ -13,15 +13,22 @@ module TweetsHelper
   
   ### BASIC TEXT PROCESSING:
   def tokenize(string)
-    string.gsub(/\shttp\S+\s/,' ').downcase.split(/\W/)
+    string = " #{string} "
+    string += ' '
+    string.gsub!(/[\s\A]http\S+[\s]/, ' ')
+    string.downcase.split(/\W+/)[1..-1] || [ ]
   end
   
   def histogram(tweet, entity_name=:tokens)
     hist = Hash.new(0)
-    histogram_tokens(tweet, entity_name).each {|token| hist[token] += 1 unless token !~ /\S/ }
+    begin
+      histogram_tokens(tweet, entity_name).each {|token| hist[token] += 1 unless token !~ /\S/ }
+    rescue => err
+      warn "Failed to generate #{entity_name} histogram for #{tweet.inspect}\n#{err}"
+    end
     hist
   end
-
+  
   def document_frequency(hist)
     df = Hash.new(0)
     hist.keys.each {|token| df[token] = 1 }
@@ -49,17 +56,19 @@ module TweetsHelper
     reduced
   end
   
-  def save_batch_histograms(histograms, tweet_count, since_id, metric=:term_frequency)
+  def save_batch_histograms(histograms, tweet_count, since_id=nil, metric=:term_frequency, stream=:home_timeline)
     histograms.each do |name, hist|
       batch_details = {
         name: name, 
         tweet_count: tweet_count, 
         histogram: hist.to_json,
+        stream: stream,
         since_id: since_id,
         metric: metric
       }
       batch = BatchHistogram.new(batch_details)
       warn "Failed to save batch: #{batch.inspect}" unless batch.save
+      warn "http: #{batch['http']}" if batch['http']
       $stderr << '.'
     end
   end

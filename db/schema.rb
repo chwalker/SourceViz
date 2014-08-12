@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140810115817) do
     t.integer  "since_id"
     t.text     "histogram"
     t.string   "metric"
+    t.string   "stream"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
