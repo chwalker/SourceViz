@@ -1,17 +1,14 @@
 Rails.application.routes.draw do
+
   resources :hourly_histograms
-
   resources :monthly_histograms
-
   resources :weekly_histograms
-
   resources :daily_histograms
-
   resources :batch_histograms
 
-  get 'tweets/view'
-
   get 'friends/index'
+  get 'tweets/view'
+  get 'tweets/index'
   get 'twitter_users/profile/:id'  => 'twitter_users#profile'
   get 'twitter_users/graph/:id'    => 'twitter_users#graph'
   get 'twitter_users/:id/befriend' => 'twitter_users#befriend'

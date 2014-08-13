@@ -35,7 +35,7 @@ while(true)
   save_batch_histograms(tf, count, since_id, :term_frequency, :home_timeline)
   save_batch_histograms(df, count, since_id, :document_frequency, :home_timeline)
   
-  if count == 200 and sleep_time > MIN_SLEEP_TIME
+  if count >= 195 and sleep_time > MIN_SLEEP_TIME
     $stderr << "Adjusting sleep time (Tweets: #{count}, Sleep: #{sleep_time}). Reducing by 30s."
     sleep_time -= 30
   end
