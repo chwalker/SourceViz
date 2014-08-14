@@ -1,34 +1,42 @@
-<div class="container">
-    <div class="col-sm-6" style="height:75px;">
-       <div class='col-md-5'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker8'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9" id="svg_pane">  </div>
+    <div class="col-md-3" id="query_pane">
+      <div class="row">&nbsp;</div>
+      <div class="row">&nbsp;</div>
+      <div class="row">&nbsp;</div>
+      <div class="row">&nbsp;</div>
+      <div class="row"><h3>Select start and end dates:</h3></div>
+      <div class="form-group">
+        <div class="input-group date" id="datetimepicker_min">
+          <input type="text" class="form-control" />
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+          </span>
         </div>
-        <div class='col-md-5'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker9'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group date" id="datetimepicker_max">
+	  <input type="text" class="form-control" />
+	  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+	  </span>
         </div>
+      </div>
+      <div class="btn-group">
+	<button class="btn btn-success" id="run_query_button">Submit</button>
+      </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker8').datetimepicker();
-            $('#datetimepicker9').datetimepicker();
-            $("#datetimepicker8").on("dp.change",function (e) {
-               $('#datetimepicker9').data("DateTimePicker").setMinDate(e.date);
-            });
-            $("#datetimepicker9").on("dp.change",function (e) {
-               $('#datetimepicker8').data("DateTimePicker").setMaxDate(e.date);
-            });
-        });
-    </script>
+  </div>
 </div>
+
+<script type="text/javascript">
+  $(function () {
+  $("#datetimepicker_min").datetimepicker();
+  $("#datetimepicker_max").datetimepicker();
+  $("#datetimepicker_min").on("dp.change",function (e) {
+  $("#datetimepicker_min").data("DateTimePicker").setMinDate(e.date);
+  });
+  $("#datetimepicker_max").on("dp.change",function (e) {
+  $("#datetimepicker_max").data("DateTimePicker").setMaxDate(e.date);
+  });
+  });
+</script>
