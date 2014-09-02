@@ -30,10 +30,14 @@ while(true)
       df[name] = reduce_histograms([ df[name], df_hist ]) 
     end
   end
-  $stderr << "\n#{count} tweets retrieved"
+  $stderr << "\n#{count} tweets retrieved at #{DateTime.now}"
 
-  save_batch_histograms(tf, count, since_id, :term_frequency, :home_timeline)
-  save_batch_histograms(df, count, since_id, :document_frequency, :home_timeline)
+  begin
+    save_batch_histograms(tf, count, since_id, :term_frequency, :home_timeline)
+    save_batch_histograms(df, count, since_id, :document_frequency, :home_timeline)
+  rescue => err
+    warn "Batch histogram (#{since_id}) failed to save at #{Datetime.now}: #{err}"
+  end
   
   if count >= 195 and sleep_time > MIN_SLEEP_TIME
     $stderr << "Adjusting sleep time (Tweets: #{count}, Sleep: #{sleep_time}). Reducing by 30s."
